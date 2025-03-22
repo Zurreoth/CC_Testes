@@ -42,6 +42,15 @@ public class ContratoDTO {
         this.vendedor = vendedor;
     }
 
+    public ContratoDTO(Date dataEmissao, Double valor, Integer status, Contratante contratante, Vendedor vendedor, List<Projeto> projetos) {
+        this.dataEmissao = dataEmissao;
+        this.valor = valor;
+        this.status = status;
+        this.contratante = contratante;
+        this.vendedor = vendedor;
+        this.projetos = projetos;
+    }
+
     public Date getDataEmissao() {
         return dataEmissao;
     }

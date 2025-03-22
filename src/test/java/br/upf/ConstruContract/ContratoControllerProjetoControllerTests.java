@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -40,23 +41,22 @@ class ContratoControllerProjetoControllerTests {
 
     @Test
     void testContratoAndProjeto() throws Exception {
-        ContratoDTO contratoDTO = new ContratoDTO(new Date(), 3000.0, 1, null, null);
         ProjetoDTO projetoDTO = new ProjetoDTO("Projeto Integrado", 3000.0);
-
         Projeto projeto = new Projeto("Projeto Integrado", 3000.0);
-        Contrato contrato = new Contrato(new Date(), 3000.0, 1, null, null);
-        contrato.setProjetos(Arrays.asList(new ProjetoContrato(projeto, contrato)));
-        when(contratoService.getContratos()).thenReturn(Arrays.asList(contrato));
-        when(projetoService.getProjetos()).thenReturn(Arrays.asList(projeto));
-
-        mockMvc.perform(post("/contrato")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(contratoDTO)))
-                .andExpect(status().isOk());
 
         mockMvc.perform(post("/projeto")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(projetoDTO)))
+                .andExpect(status().isOk());
+
+        ContratoDTO contratoDTO = new ContratoDTO(new Date(), 3000.0, 1, null, null, List.of(projeto));
+        Contrato contrato = new Contrato(new Date(), 3000.0, 1, null, null);
+        contrato.setProjetos(Arrays.asList(new ProjetoContrato(projeto, contrato)));
+        when(contratoService.getContratos()).thenReturn(Arrays.asList(contrato));
+
+        mockMvc.perform(post("/contrato")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(contratoDTO)))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get("/contrato"))

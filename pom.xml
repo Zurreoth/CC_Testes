@@ -41,11 +41,10 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.24.0</version>
-			<!--  Verifique a versão mais recente  -->
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
+			<artifactId>junit-jupiter</artifactId>
 			<version>5.4.0</version>
 			<scope>test</scope>
 		</dependency>
